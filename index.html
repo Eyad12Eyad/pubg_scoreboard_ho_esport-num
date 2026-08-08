@@ -168,6 +168,64 @@
     display:flex; gap:10px; justify-content:flex-end; margin-top:14px;
   }
 
+  /* ---- Gemini AI extraction modal ---- */
+  .modal.gem-modal{ max-width:720px; max-height:88vh; overflow-y:auto; }
+  .gem-row{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:10px; }
+  .gem-row label{ color:#9dc4f5; font-size:12.5px; min-width:110px; }
+  .gem-row input[type="text"], .gem-row input[type="password"]{
+    flex:1; min-width:180px;
+    background:#060b16; border:1px solid #1c2c48; color:#eaf3ff;
+    font-family:'Rajdhani', sans-serif; font-size:14px; padding:9px 10px; outline:none;
+  }
+  .gem-row input:focus{ border-color:#3d8bf0; }
+  .gem-check{ display:flex; align-items:center; gap:6px; color:#9dc4f5; font-size:12px; }
+  .gem-dropzone{
+    border:2px dashed #1c2c48; background:#060b16; border-radius:4px;
+    padding:18px; text-align:center; color:#6f88ad; font-size:12.5px; cursor:pointer;
+    transition:border-color .15s, color .15s; margin-bottom:10px;
+  }
+  .gem-dropzone.drag{ border-color:#3d8bf0; color:#9dc4f5; }
+  .gem-dropzone img{ max-width:100%; max-height:220px; display:block; margin:8px auto 0; border-radius:3px; }
+  .gem-thumbs{
+    display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
+    margin-top:10px;
+  }
+  .gem-thumb{
+    position:relative; width:92px; height:92px; border-radius:4px; overflow:hidden;
+    border:1px solid #1c2c48; background:#0a1220;
+  }
+  .gem-thumb img{ width:100%; height:100%; object-fit:cover; display:block; margin:0; max-width:none; max-height:none; }
+  .gem-thumb .gem-thumb-remove{
+    position:absolute; top:2px; inset-inline-end:2px; width:20px; height:20px; line-height:18px;
+    border-radius:50%; background:rgba(10,15,25,0.85); color:#ff8080; border:1px solid #ff6b6b;
+    font-size:13px; text-align:center; cursor:pointer;
+  }
+  .gem-thumb .gem-thumb-idx{
+    position:absolute; bottom:2px; inset-inline-start:2px; background:rgba(10,15,25,0.85);
+    color:#9dc4f5; font-size:10px; padding:1px 5px; border-radius:3px;
+  }
+  .gem-status{ font-size:12.5px; color:#9dc4f5; min-height:18px; margin-bottom:8px; }
+  .gem-status.err{ color:#ff6b6b; }
+  .gem-status.ok{ color:#4be07a; }
+  .gem-results-table{ width:100%; border-collapse:collapse; font-family:'Rajdhani', sans-serif; font-size:13px; margin-bottom:8px; }
+  .gem-results-table th{ color:#6f88ad; text-align:center; font-size:11px; padding:6px 4px; border-bottom:1px solid #1c2c48; }
+  .gem-results-table td{ text-align:center; padding:5px 4px; border-bottom:1px solid #101a2e; color:#eaf3ff; }
+  .gem-results-table input[type="number"]{
+    width:60px; background:#060b16; border:1px solid #1c2c48; color:#eaf3ff;
+    font-family:'Rajdhani', sans-serif; padding:5px; text-align:center; outline:none;
+  }
+  .gem-results-table select{
+    background:#060b16; border:1px solid #1c2c48; color:#eaf3ff;
+    font-family:'Cairo', sans-serif; font-size:12px; padding:5px; outline:none; max-width:170px;
+  }
+  .gem-detected-name{ color:#6f88ad; font-size:11.5px; }
+  .gem-spinner{
+    display:inline-block; width:14px; height:14px; border-radius:50%;
+    border:2px solid #1c2c48; border-top-color:#4fa8ff;
+    animation:gemspin .8s linear infinite; vertical-align:middle; margin-inline-end:6px;
+  }
+  @keyframes gemspin{ to{ transform:rotate(360deg); } }
+
   .style-panel{
     max-width:1020px;
     width:100%;
@@ -201,6 +259,70 @@
     padding:8px 14px;
     font-size:11.5px;
   }
+
+  /* ---- Global Gemini API Key Settings panel ---- */
+  .api-settings{
+    max-width:1020px;
+    width:100%;
+    margin: 8px auto 0;
+    background: rgba(6,11,22,0.97);
+    border:1px solid #1c2c48;
+    font-family:'Cairo', sans-serif;
+    position:relative;
+    overflow:hidden;
+  }
+  .api-settings::before{
+    content:'';
+    position:absolute;
+    top:0; right:0;
+    width:3px; height:100%;
+    background:linear-gradient(180deg,#3d8bf0,transparent);
+  }
+  .api-settings-toggle{
+    display:flex; align-items:center; gap:10px;
+    padding:11px 18px;
+    cursor:pointer;
+    user-select:none;
+    color:#9dc4f5;
+    font-size:13px;
+  }
+  .api-settings-toggle:hover{ background:rgba(61,139,240,0.05); }
+  .api-settings-toggle .api-title{ font-weight:800; color:#6fb3ff; letter-spacing:.5px; flex:1; }
+  .api-settings-body{
+    display:none;
+    padding:12px 18px 16px;
+    border-top:1px solid #1c2c48;
+  }
+  .api-settings-body.open{ display:block; }
+  .api-settings-note{
+    font-size:12px; color:#7f96b8; line-height:1.85; margin-bottom:12px;
+  }
+  .api-settings-note a{ color:#6fb3ff; text-decoration:none; }
+  .api-settings-note a:hover{ text-decoration:underline; }
+  .api-row{
+    display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:9px;
+  }
+  .api-row label.api-lbl{ color:#9dc4f5; font-size:12.5px; min-width:120px; }
+  .api-row input[type=password],
+  .api-row input[type=text]{
+    flex:1; min-width:200px;
+    background:#060b16; border:1px solid #1c2c48; color:#eaf3ff;
+    font-family:'Rajdhani', sans-serif; font-size:14px;
+    padding:9px 12px; outline:none;
+  }
+  .api-row input:focus{ border-color:#3d8bf0; }
+  .api-check-label{
+    display:flex; align-items:center; gap:6px;
+    color:#9dc4f5; font-size:12px; cursor:pointer;
+  }
+  .api-key-badge{
+    display:inline-flex; align-items:center;
+    font-size:11px; padding:3px 10px;
+    margin-inline-start:auto;
+  }
+  .api-key-badge.set{ background:rgba(59,215,110,0.12); color:#4be07a; border:1px solid rgba(59,215,110,0.3); }
+  .api-key-badge.empty{ background:rgba(255,107,107,0.1); color:#ff8080; border:1px solid rgba(255,107,107,0.25); }
+  .api-arrow{ color:#556b8a; font-size:12px; margin-inline-start:4px; }
 
   /* ================= Tournament Points Tracker ================= */
   .trk-panel{
@@ -330,6 +452,32 @@
     <button class="btn secondary" onclick="resetEverything()">🗑 تصفير كل شيء</button>
   </div>
 
+  <!-- ---- Global Gemini API Key Settings ---- -->
+  <div class="api-settings" id="apiSettingsPanel">
+    <div class="api-settings-toggle" onclick="toggleApiSettings()">
+      <span class="api-title">🔑 إعدادات  API</span>
+      <span id="apiKeyBadge" class="api-key-badge empty">مفتاح غير محفوظ</span>
+      <span class="api-arrow" id="apiArrow">▼</span>
+    </div>
+    <div class="api-settings-body" id="apiSettingsBody">
+      <div class="api-settings-note">
+       راسلني للمفتاح eyad_eyad120
+      </div>
+      <div class="api-row">
+        <label class="api-lbl">مفتاح  API</label>
+        <input type="password" id="globalApiKey" placeholder="الصق مفتاح Gemini API هنا (AIza...)..." oninput="onGlobalKeyChange()">
+        <input type="text" id="globalModelName" value="eyad" placeholder="اسم الموديل" style="max-width:190px;" oninput="onGlobalKeyChange()">
+      </div>
+      <div class="api-row" style="margin-bottom:0;">
+        <label class="api-lbl"></label>
+        <label class="api-check-label">
+          <input type="checkbox" id="globalSaveKey" checked onchange="onGlobalKeyChange()">
+          احفظ المفتاح بهذا المتصفح فقط (localStorage)
+        </label>
+      </div>
+    </div>
+  </div>
+
   <p class="hint">كل الخانات (اسم الفريق / MP / KP / PP / TT / CO / POS) تتعبّى تلقائيًا من الترتيب تحت — عدّل الفرق والنقاط والجولات من هناك بدل ما تكتب بالصورة مباشرة. لما تخلص، اضغط "تحميل الصورة" عشان تنزّلها جاهزة بصيغة PNG.</p>
 
   <!-- ================= Tournament Points Tracker ================= -->
@@ -352,6 +500,9 @@
   <div class="trk-panel">
     <h2>إدخال بيانات الجولة الحالية <span class="trk-tag">Round Entry</span></h2>
     <p class="trk-desc">اسم كل فريق قابل للتعديل مباشرة بنفس الجدول. حدد المركز والكيلات لكل فريق — أي مركز تختاره ينشطب تلقائيًا من باقي القوائم حتى ما تقدر تعطيه لفريق ثاني بالغلط. اترك المركز فارغ لأي فريق ما شارك.</p>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+      <button class="btn secondary" onclick="gemOpenModal()">🤖 استخراج تلقائي من صورة (Gemini AI)</button>
+    </div>
     <div style="overflow-x:auto;">
       <table class="trk-table" id="trkRoundEntryTable">
         <thead><tr><th style="text-align:right;">اسم الفريق</th><th>المركز</th><th>الكيلات</th><th>نقاط المركز</th><th>مجموع الجولة</th></tr></thead>
@@ -451,6 +602,42 @@
     </div>
   </div>
 
+  <!-- Gemini AI extraction modal -->
+  <div class="modal-backdrop" id="gemBackdrop">
+    <div class="modal gem-modal">
+      <h3>🤖 استخراج تلقائي من صورة (Gemini AI)</h3>
+      <p class="modal-desc">ارفع صورة شاشة نتائج الماتش (المراكز + الكيلات لكل فريق)، وذكاء Gemini الاصطناعي بيقرأها ويطلعلك المركز والكيلات لكل صف. بعد الاستخراج، أنت تحدد أي فريق من فرقك يطابق كل صف — الاسم المكتشف بالصورة للمرجعية بس ومو ملزم يطابق اسم فريقك بالجدول.</p>
+
+      <div class="gem-row" style="background:rgba(61,139,240,0.06); border:1px solid #1c2c48; padding:9px 12px; margin-bottom:10px; font-size:12.5px; color:#9dc4f5; align-items:center;">
+        🔑 المفتاح والموديل المستخدم محدّدين في لوحة <b style="color:#6fb3ff;">إعدادات Gemini API</b> أعلى الصفحة.
+        <span id="gemModalKeyStatus" style="margin-inline-start:auto; font-size:11.5px;"></span>
+      </div>
+
+      <div class="gem-dropzone" id="gemDropzone" onclick="document.getElementById('gemFileInput').click()">
+        📷 اضغط هنا لاختيار صورة أو أكثر، أو اسحبها وأفلتها
+        <input type="file" id="gemFileInput" accept="image/*" multiple style="display:none;">
+        <div class="gem-thumbs" id="gemThumbs"></div>
+      </div>
+
+      <div class="gem-status" id="gemStatus"></div>
+
+      <div id="gemResultsWrap" style="display:none;">
+        <div style="overflow-x:auto;">
+          <table class="gem-results-table">
+            <thead><tr><th>المركز</th><th>الكيلات</th><th>الاسم المكتشف (مرجعي)</th><th>تعيين لفريقك</th></tr></thead>
+            <tbody id="gemResultsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn" id="gemExtractBtn" onclick="gemExtract()">استخراج النتائج</button>
+        <button class="btn" id="gemApplyBtn" onclick="gemApplyResults()" style="display:none;">✅ تطبيق على الجولة الحالية</button>
+        <button class="btn secondary" onclick="gemCloseModal()">إغلاق</button>
+      </div>
+    </div>
+  </div>
+
 <script>
   const stage = document.getElementById('stage');
   const NATURAL_W = 1074, BASE_H = 1280; // BASE_H = height of the fixed artwork itself
@@ -519,6 +706,9 @@
     const nameEl = makeField('name-field', nameLeftPx, topPx, nameWidthPx, rowHeightPx, 'اسم الفريق', 20);
     nameEl.dataset.pos = pos; nameEl.dataset.field='name';
     nameEl.dir = 'rtl';
+    nameEl.addEventListener('input', ()=>{
+      if(typeof trkSyncNameFromImage === 'function') trkSyncNameFromImage(pos, nameEl.value);
+    });
     stage.appendChild(nameEl);
 
     ['mp','kp','pp','tt','co','pos'].forEach(f=>{
@@ -893,6 +1083,9 @@
       nameInput.value = trkTeamNames[i];
       nameInput.addEventListener('input', ()=>{
         trkTeamNames[i] = nameInput.value.trim() || ('Team ' + teamId);
+        // sync to image name field at same position
+        const imgF = getNameField(teamId);
+        if(imgF){ imgF.value = nameInput.value; if(typeof applyFontSizes==='function') applyFontSizes(); }
         trkRenderStandings();
         trkRenderRoundLog();
         trkRenderQuickStats();
@@ -970,6 +1163,369 @@
       });
     });
   }
+
+  function trkSyncNameFromImage(pos, value){
+    if(pos < 1 || pos > totalTeams()) return;
+    trkTeamNames[pos - 1] = value.trim() || ('Team ' + pos);
+    // update the matching name input in the round entry form
+    const row = document.querySelector('#trkRoundEntryBody tr[data-team-id="'+pos+'"]');
+    if(row){
+      const inp = row.querySelector('.trk-name-input');
+      if(inp && inp.value !== value) inp.value = value;
+    }
+    trkRenderStandings();
+    trkRenderRoundLog();
+    trkRenderQuickStats();
+  }
+
+  // ================= Global Gemini API Key Panel =================
+  const GEM_KEY_STORAGE = 'trk_gemini_api_key';
+
+  function toggleApiSettings(){
+    const body = document.getElementById('apiSettingsBody');
+    const arrow = document.getElementById('apiArrow');
+    const open = body.classList.toggle('open');
+    arrow.textContent = open ? '▲' : '▼';
+  }
+
+  function onGlobalKeyChange(){
+    const key = document.getElementById('globalApiKey').value.trim();
+    const save = document.getElementById('globalSaveKey').checked;
+    const badge = document.getElementById('apiKeyBadge');
+    if(key){
+      badge.textContent = '✓ مفتاح موجود';
+      badge.className = 'api-key-badge set';
+      if(save){ localStorage.setItem(GEM_KEY_STORAGE, document.getElementById('globalApiKey').value); }
+    } else {
+      badge.textContent = 'مفتاح غير محفوظ';
+      badge.className = 'api-key-badge empty';
+    }
+    if(!save){ localStorage.removeItem(GEM_KEY_STORAGE); }
+  }
+
+  function getGlobalApiKey(){
+    return document.getElementById('globalApiKey').value.trim();
+  }
+  function getGlobalModel(){
+    return (document.getElementById('globalModelName').value || 'gemini-3.6-flash').trim();
+  }
+
+  // Load saved key on page load
+  (function(){
+    const saved = localStorage.getItem(GEM_KEY_STORAGE) || '';
+    if(saved){
+      document.getElementById('globalApiKey').value = saved;
+      onGlobalKeyChange();
+      // auto-open so user sees it's set
+    }
+  })();
+
+  // ================= Gemini AI auto-extraction (round results from a screenshot) =================
+  let gemExtractedRows = []; // [{position, kills, team_name}]
+  let gemImages = []; // [{mime, data(base64), dataUrl, name, size}] — supports multiple images
+
+  function gemOpenModal(){
+    // Show key status in modal header
+    const key = getGlobalApiKey();
+    const statusEl = trkEl('gemModalKeyStatus');
+    if(statusEl){
+      statusEl.textContent = key ? '✓ مفتاح موجود' : '⚠ لا يوجد مفتاح';
+      statusEl.style.color = key ? '#4be07a' : '#ff8080';
+    }
+    trkEl('gemBackdrop').classList.add('open');
+  }
+  function gemCloseModal(){
+    trkEl('gemBackdrop').classList.remove('open');
+  }
+  function gemSetStatus(msg, kind){
+    const el = trkEl('gemStatus');
+    el.innerHTML = msg;
+    el.className = 'gem-status' + (kind ? ' ' + kind : '');
+  }
+
+  function gemInitDropzone(){
+    const zone = trkEl('gemDropzone');
+    const input = trkEl('gemFileInput');
+    if(!zone || !input) return;
+    input.addEventListener('change', ()=>{
+      if(input.files && input.files.length) gemHandleFiles(input.files);
+      input.value = ''; // allow re-selecting the same file(s) later
+    });
+    ['dragenter','dragover'].forEach(ev=> zone.addEventListener(ev, e=>{
+      e.preventDefault(); e.stopPropagation(); zone.classList.add('drag');
+    }));
+    ['dragleave','drop'].forEach(ev=> zone.addEventListener(ev, e=>{
+      e.preventDefault(); e.stopPropagation(); zone.classList.remove('drag');
+    }));
+    zone.addEventListener('drop', e=>{
+      const files = e.dataTransfer && e.dataTransfer.files;
+      if(files && files.length) gemHandleFiles(files);
+    });
+  }
+
+  // Accepts a FileList/array of files, reads each, and appends to gemImages
+  // while skipping files that are already in the list (duplicate prevention).
+  function gemHandleFiles(fileList){
+    const files = Array.from(fileList);
+    let skippedType = 0, skippedDup = 0, queued = 0;
+
+    files.forEach(file=>{
+      if(!file.type.startsWith('image/')){
+        skippedType++;
+        return;
+      }
+      // Duplicate check: same name + size already queued
+      const isDup = gemImages.some(img => img.name === file.name && img.size === file.size);
+      if(isDup){
+        skippedDup++;
+        return;
+      }
+      queued++;
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataUrl = reader.result;
+        const base64 = dataUrl.split(',')[1];
+        // Second-layer duplicate check: identical image content already added
+        const isContentDup = gemImages.some(img => img.data === base64);
+        if(isContentDup){
+          gemSetStatus('تم تجاهل صورة مكررة (نفس المحتوى).', '');
+          return;
+        }
+        gemImages.push({ mime: file.type, data: base64, dataUrl, name: file.name, size: file.size });
+        gemRenderThumbs();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    if(skippedType) gemSetStatus('تم تجاهل ' + skippedType + ' ملف غير صورة.', 'err');
+    else if(skippedDup && !queued) gemSetStatus('هذي الصورة/الصور موجودة مسبقاً — ما راح تتكرر.', '');
+    else if(queued) gemSetStatus('جاري تحميل ' + queued + ' صورة...', '');
+  }
+
+  function gemRenderThumbs(){
+    const wrap = trkEl('gemThumbs');
+    if(!wrap) return;
+    wrap.innerHTML = '';
+    gemImages.forEach((img, idx)=>{
+      const box = document.createElement('div');
+      box.className = 'gem-thumb';
+
+      const im = document.createElement('img');
+      im.src = img.dataUrl;
+      box.appendChild(im);
+
+      const idxTag = document.createElement('div');
+      idxTag.className = 'gem-thumb-idx';
+      idxTag.textContent = '#' + (idx + 1);
+      box.appendChild(idxTag);
+
+      const rm = document.createElement('div');
+      rm.className = 'gem-thumb-remove';
+      rm.textContent = '×';
+      rm.title = 'إزالة';
+      rm.onclick = (e)=>{ e.stopPropagation(); gemRemoveImage(idx); };
+      box.appendChild(rm);
+
+      wrap.appendChild(box);
+    });
+    if(gemImages.length){
+      gemSetStatus('تم اختيار ' + gemImages.length + ' صورة — اضغط "استخراج النتائج".', '');
+    }
+  }
+
+  function gemRemoveImage(idx){
+    gemImages.splice(idx, 1);
+    gemRenderThumbs();
+    if(!gemImages.length) gemSetStatus('', '');
+  }
+
+  async function gemExtract(){
+    const apiKey = getGlobalApiKey();
+    const model = getGlobalModel();
+    if(!apiKey){
+      gemSetStatus('لازم تحط مفتاح Gemini API في لوحة الإعدادات أعلى الصفحة.', 'err');
+      gemCloseModal();
+      // open settings panel automatically
+      const body = document.getElementById('apiSettingsBody');
+      if(body && !body.classList.contains('open')) toggleApiSettings();
+      document.getElementById('globalApiKey').focus();
+      return;
+    }
+    if(!gemImages.length){ gemSetStatus('لازم تختار صورة وحدة على الأقل.', 'err'); return; }
+
+    const btn = trkEl('gemExtractBtn');
+    btn.disabled = true;
+    trkEl('gemResultsWrap').style.display = 'none';
+    trkEl('gemApplyBtn').style.display = 'none';
+
+    const prompt = 'You are reading a screenshot of a PUBG Mobile tournament match results / standings screen. ' +
+      'It lists teams ranked by final placement (1 = winner / WWCD) along with the number of kills for each team. ' +
+      'Extract every row you can clearly see. Respond with ONLY a raw JSON array, no markdown, no code fences, no explanation. ' +
+      'Each element must be exactly: {"position": <integer rank, 1 is best>, "team_name": "<team name exactly as shown in the image>", "kills": <integer kill count>}. ' +
+      'Sort the array ascending by position. If a field is not clearly visible for a row, set it to null instead of guessing. ' +
+      'Do not invent rows that are not visible in the image.';
+
+    // Normalizes a row's identity so we can dedupe rows extracted from multiple
+    // images (e.g. the same screenshot uploaded twice, or overlapping crops).
+    const gemRowKey = (r) => (r.position || '') + '|' + String(r.team_name || '').trim().toLowerCase();
+
+    const mergedRows = [];
+    const seenKeys = new Set();
+    let dupCount = 0;
+    let failCount = 0;
+
+    for(let i = 0; i < gemImages.length; i++){
+      const image = gemImages[i];
+      gemSetStatus('<span class="gem-spinner"></span> جاري تحليل الصورة ' + (i+1) + ' من ' + gemImages.length + '...', '');
+
+      const body = {
+        contents: [{
+          parts: [
+            { text: prompt },
+            { inline_data: { mime_type: image.mime, data: image.data } }
+          ]
+        }],
+        generationConfig: { temperature: 0, responseMimeType: 'application/json' }
+      };
+
+      try{
+        const res = await fetch(
+          'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent',
+          { method:'POST', headers:{'Content-Type':'application/json', 'x-goog-api-key': apiKey}, body: JSON.stringify(body) }
+        );
+        const data = await res.json();
+        if(!res.ok){
+          const msg = (data && data.error && data.error.message) ? data.error.message : ('HTTP ' + res.status);
+          throw new Error(msg);
+        }
+        const rawText = data && data.candidates && data.candidates[0] && data.candidates[0].content &&
+          data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text;
+        if(!rawText) throw new Error('ما رجع النموذج أي نص لهذي الصورة.');
+
+        const cleaned = rawText.trim().replace(/^```json/i, '').replace(/^```/, '').replace(/```$/, '').trim();
+        let parsed;
+        try{ parsed = JSON.parse(cleaned); }
+        catch(e){ throw new Error('تعذر قراءة رد Gemini كـ JSON لهذي الصورة.'); }
+        if(!Array.isArray(parsed)) throw new Error('رد غير متوقع من Gemini لهذي الصورة.');
+
+        parsed
+          .filter(r => r && (r.position !== null && r.position !== undefined))
+          .map(r => ({
+            position: parseInt(r.position, 10) || null,
+            kills: (r.kills === null || r.kills === undefined || isNaN(parseInt(r.kills,10))) ? 0 : parseInt(r.kills, 10),
+            team_name: (r.team_name === null || r.team_name === undefined) ? '' : String(r.team_name)
+          }))
+          .forEach(row=>{
+            const key = gemRowKey(row);
+            if(seenKeys.has(key)){ dupCount++; return; } // prevent duplicate rows across images
+            seenKeys.add(key);
+            mergedRows.push(row);
+          });
+      }catch(err){
+        failCount++;
+      }
+    }
+
+    mergedRows.sort((a,b)=> (a.position||999) - (b.position||999));
+    gemExtractedRows = mergedRows;
+
+    btn.disabled = false;
+
+    if(!gemExtractedRows.length){
+      gemSetStatus('ما قدر Gemini يميز أي صفوف من الصور المختارة.', 'err');
+      return;
+    }
+
+    gemRenderResults();
+    let msg = 'تم الاستخراج ✅ — راجع الصفوف وحدد الفريق المطابق لكل صف قبل التطبيق.';
+    if(dupCount) msg += ' (تم تجاهل ' + dupCount + ' صف مكرر)';
+    if(failCount) msg += ' — تعذر تحليل ' + failCount + ' من ' + gemImages.length + ' صورة.';
+    gemSetStatus(msg, failCount ? '' : 'ok');
+    trkEl('gemResultsWrap').style.display = 'block';
+    trkEl('gemApplyBtn').style.display = 'inline-block';
+  }
+
+  function gemBuildTeamOptions(selectedTeamId){
+    let html = '<option value="">— تجاهل —</option>';
+    for(let i=0;i<totalTeams();i++){
+      const teamId = i + 1;
+      const sel = (selectedTeamId === teamId) ? ' selected' : '';
+      html += '<option value="'+teamId+'"'+sel+'>فريق '+teamId+' — '+trkEscapeHtml(trkTeamNames[i])+'</option>';
+    }
+    return html;
+  }
+
+  function gemGuessTeamIdForName(name){
+    if(!name) return null;
+    const norm = s => String(s).trim().toLowerCase();
+    const target = norm(name);
+    for(let i=0;i<trkTeamNames.length;i++){
+      if(norm(trkTeamNames[i]) === target) return i+1;
+    }
+    return null;
+  }
+
+  function gemRenderResults(){
+    const body = trkEl('gemResultsBody');
+    body.innerHTML = '';
+    gemExtractedRows.forEach((row, idx) => {
+      const tr = document.createElement('tr');
+
+      const posTd = document.createElement('td');
+      const posInput = document.createElement('input');
+      posInput.type = 'number'; posInput.min = '1'; posInput.value = row.position || '';
+      posInput.addEventListener('input', ()=>{ gemExtractedRows[idx].position = parseInt(posInput.value,10) || null; });
+      posTd.appendChild(posInput);
+      tr.appendChild(posTd);
+
+      const killsTd = document.createElement('td');
+      const killsInput = document.createElement('input');
+      killsInput.type = 'number'; killsInput.min = '0'; killsInput.value = row.kills || 0;
+      killsInput.addEventListener('input', ()=>{ gemExtractedRows[idx].kills = parseInt(killsInput.value,10) || 0; });
+      killsTd.appendChild(killsInput);
+      tr.appendChild(killsTd);
+
+      const nameTd = document.createElement('td');
+      nameTd.className = 'gem-detected-name';
+      nameTd.textContent = row.team_name || '—';
+      tr.appendChild(nameTd);
+
+      const assignTd = document.createElement('td');
+      const select = document.createElement('select');
+      const guessedId = gemGuessTeamIdForName(row.team_name);
+      select.innerHTML = gemBuildTeamOptions(guessedId);
+      select.dataset.rowIndex = idx;
+      assignTd.appendChild(select);
+      tr.appendChild(assignTd);
+
+      body.appendChild(tr);
+    });
+  }
+
+  function gemApplyResults(){
+    const selects = Array.from(document.querySelectorAll('#gemResultsBody select'));
+    let applied = 0;
+    selects.forEach(sel=>{
+      const teamId = parseInt(sel.value, 10);
+      if(!teamId) return;
+      const idx = parseInt(sel.dataset.rowIndex, 10);
+      const row = gemExtractedRows[idx];
+      if(!row || !row.position) return;
+      const tr = document.querySelector('#trkRoundEntryBody tr[data-team-id="'+teamId+'"]');
+      if(!tr) return;
+      const posSelect = tr.querySelector('.trk-pos-select');
+      const killsInput = tr.querySelector('.trk-kills-input');
+      if(posSelect) posSelect.value = row.position;
+      if(killsInput) killsInput.value = row.kills || 0;
+      applied++;
+    });
+    trkUpdatePositionAvailability();
+    trkUpdateRoundEntryTotals();
+    gemSetStatus('تم تطبيق ' + applied + ' صف على جدول الجولة الحالية ✅', 'ok');
+    gemCloseModal();
+  }
+
+  gemInitDropzone();
 
   let trkEditingRoundNumber = null; // null = adding a new round; otherwise editing that round number
 
